@@ -1,6 +1,6 @@
 <template>
 <ul>
-  <li v-for="talk in backendTalks">
+  <li v-for="talk in androidTalks">
     <h1>主題：{{talk.title}}</h1>
     <div class="talk">
       <div class="speaker">
@@ -17,18 +17,18 @@
 </template>
 
 <script>
-function isBackend(item) {
-  const backEndCondition = ["Backend-end", "backend-end", "Security", "NodeJS"];
-  return backEndCondition.includes(item.class);
+function isAndroid(item) {
+  const androidCondition = ["Android"];
+  return androidCondition.includes(item.class);
 }
 export default {
   props: ["talks"],
   computed: {
-    backendTalks: function() {
+    androidTalks: function() {
       // let arr = this.talks.map(talk => talk.speaker_img)
       // return arr;
-      let backendTalks = this.talks.filter(isBackend);
-      return backendTalks.reverse();
+      let androidTalks = this.talks.filter(isAndroid);
+      return androidTalks.reverse();
     }
   }
 };

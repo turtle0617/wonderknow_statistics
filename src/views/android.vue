@@ -1,27 +1,27 @@
 <template>
-<div class="home">
+<div class="backend">
+  <androidDisplay v-bind:talks="talks" />
   <getData v-on:send-datas="receiveData" />
-  <MemberDisplay v-bind:datas="datas" />
 </div>
 </template>
 
 <script>
-import MemberDisplay from "@/components/MemberDisplay.vue";
+import androidDisplay from "@/components/androidDisplay.vue";
 import getData from "@/components/getData.vue";
 export default {
-  name: "home",
+  name: "backend",
   data: function() {
     return {
-      datas: []
+      talks: []
     };
   },
   components: {
-    MemberDisplay,
+    androidDisplay,
     getData
   },
   methods: {
     receiveData: function(data) {
-      this.datas = data;
+      this.talks = data;
     }
   }
 };

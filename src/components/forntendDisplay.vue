@@ -2,9 +2,14 @@
 <ul>
   <li v-for="talk in frontendTalks">
     <h1>主題：{{talk.title}}</h1>
-    <div class="speaker">
-      <img v-bind:src="talk.speaker_img" alt="">
-      <span>{{talk.speaker}}</span>
+    <div class="talk">
+      <div class="speaker">
+        <img v-bind:src="talk.speaker_img" alt="">
+        <span>{{talk.speaker}}</span>
+      </div>
+      <div class="Summary">
+        {{talk.message}}
+      </div>
     </div>
     <label>日期：{{talk.speech_date}}</label>
   </li>
