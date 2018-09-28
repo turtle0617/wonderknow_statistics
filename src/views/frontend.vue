@@ -1,27 +1,28 @@
 <template>
-<div class="home">
+<div class="frontend">
+  hi I m frontend page
+  <forntendDisplay v-bind:talks="talks" />
   <getData v-on:send-datas="receiveData" />
-  <MansDisplay v-bind:datas="datas" />
 </div>
 </template>
 
 <script>
-import MansDisplay from "@/components/MansDisplay.vue";
+import forntendDisplay from "@/components/forntendDisplay.vue";
 import getData from "@/components/getData.vue";
 export default {
-  name: "home",
+  name: "frontend",
   data: function() {
     return {
-      datas: []
+      talks: []
     };
   },
   components: {
-    MansDisplay,
+    forntendDisplay,
     getData
   },
   methods: {
     receiveData: function(data) {
-      this.datas = data;
+      this.talks = data;
     }
   }
 };
