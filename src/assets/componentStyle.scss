@@ -1,0 +1,35 @@
+h3 {
+    margin: 40px 0 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    text-align: left;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #E8F3F6;
+}
+li > h1 {
+    color: #7a062e;
+}
+li > label {
+    color: #1e8ba6;
+}
+.speaker {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 25px;
+}
+.speaker > img {
+    width: 60px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+a {
+    color: #42b983;
+}

@@ -3,7 +3,7 @@
   <div id="nav">
     <router-link to="/">Mans</router-link> |
     <router-link to="/Frontend">Front-end</router-link> |
-    <router-link to="/">Back-end</router-link> |
+    <router-link to="/Backend">Back-end</router-link> |
     <router-link to="/">IOS</router-link> |
     <router-link to="/">Android</router-link> |
   </div>

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import frontend from "./views/frontend.vue";
+import backend from "./views/backend.vue";
 
 Vue.use(Router);
 
@@ -16,6 +17,11 @@ export default new Router({
       path: "/Frontend",
       name: "Frontend",
       component: frontend
+    },
+    {
+      path: "/Backend",
+      name: "Backend",
+      component: backend
     }
   ]
 });
