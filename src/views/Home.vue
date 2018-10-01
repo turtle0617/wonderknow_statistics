@@ -1,7 +1,7 @@
 <template>
 <div class="home">
   <getData v-on:send-datas="receiveData" />
-  <MemberDisplay v-bind:datas="datas" />
+  <MemberDisplay v-bind:talks="talks" />
 </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   name: "home",
   data: function() {
     return {
-      datas: []
+      talks: []
     };
   },
   components: {
@@ -21,20 +21,8 @@ export default {
   },
   methods: {
     receiveData: function(data) {
-      this.datas = data;
+      this.talks = data;
     }
   }
 };
 </script>
-<style lang="scss">
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
