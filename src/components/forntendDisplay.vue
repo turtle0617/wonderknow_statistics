@@ -17,28 +17,27 @@
 </template>
 
 <script>
-function isFrontend(item) {
-  const frontEndCondition = ["Front-end", "CSS", "HTML", "Vue"];
-  let photo = item.speaker_img;
-  item.speaker_img = checkPhoto(photo);
-  return frontEndCondition.includes(item.class);
-  // if(item.class === "Front-end" || item.class==="CSS" || item.class==="HTML" || item.class==="Vue"){
-  //   return item;
-  // }
-}
-function checkPhoto(photo) {
-  let hasPhoto = photo.includes('imgur');
-  if(!hasPhoto){
-    photo = '/goodidea.png';
-    return photo
-  }
-  return photo;
-}
 export default {
   props: ["talks"],
+  methods:{
+    isFrontend:function (item) {
+      const frontEndCondition = ["Front-end", "CSS", "HTML", "Vue"];
+      let photo = item.speaker_img;
+      item.speaker_img = this.checkPhoto(photo);
+      return frontEndCondition.includes(item.class);
+    },
+    checkPhoto:function (photo) {
+      let hasPhoto = photo.includes("imgur");
+      if (!hasPhoto) {
+        photo = "/goodidea.png";
+        return photo;
+      }
+      return photo;
+    }
+  },
   computed: {
     frontendTalks: function() {
-      let frontendTalks = this.talks.filter(isFrontend);
+      let frontendTalks = this.talks.filter(this.isFrontend);
       // let frontendTalks = this.talks.filter(data => isFrontend(data));
       return frontendTalks.reverse();
     }

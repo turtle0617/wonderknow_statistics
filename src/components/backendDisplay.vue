@@ -17,27 +17,29 @@
 </template>
 
 <script>
-function isBackend(item) {
-  const backEndCondition = ["Backend-end", "backend-end", "Security", "NodeJS"];
-  let photo = item.speaker_img;
-  item.speaker_img = checkPhoto(photo);
-  return backEndCondition.includes(item.class);
-}
-function checkPhoto(photo) {
-  let hasPhoto = photo.includes('imgur');
-  if(!hasPhoto){
-    photo = '/goodidea.png';
-    return photo
-  }
-  return photo;
-}
 export default {
   props: ["talks"],
+  methods:{
+    isBackend:function (item) {
+      const backEndCondition = ["Backend-end", "backend-end", "Security", "NodeJS"];
+      let photo = item.speaker_img;
+      item.speaker_img = this.checkPhoto(photo);
+      return backEndCondition.includes(item.class);
+    },
+    checkPhoto:function (photo) {
+      let hasPhoto = photo.includes("imgur");
+      if (!hasPhoto) {
+        photo = "/goodidea.png";
+        return photo;
+      }
+      return photo;
+    }
+  },
   computed: {
     backendTalks: function() {
       // let arr = this.talks.map(talk => talk.speaker_img)
       // return arr;
-      let backendTalks = this.talks.filter(isBackend);
+      let backendTalks = this.talks.filter(this.isBackend);
       return backendTalks.reverse();
     }
   }

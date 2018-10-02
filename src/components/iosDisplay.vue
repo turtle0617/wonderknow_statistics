@@ -17,27 +17,29 @@
 </template>
 
 <script>
-function isIOS(item) {
-  const iosCondition = ["IOS"];
-  let photo = item.speaker_img;
-  item.speaker_img = checkPhoto(photo);
-  return iosCondition.includes(item.class);
-}
-function checkPhoto(photo) {
-  let hasPhoto = photo.includes('imgur');
-  if(!hasPhoto){
-    photo = '/goodidea.png';
-    return photo
-  }
-  return photo;
-}
 export default {
   props: ["talks"],
+  methods:{
+    isIOS:function (item) {
+      const iosCondition = ["IOS"];
+      let photo = item.speaker_img;
+      item.speaker_img = this.checkPhoto(photo);
+      return iosCondition.includes(item.class);
+    },
+    checkPhoto:function (photo) {
+      let hasPhoto = photo.includes("imgur");
+      if (!hasPhoto) {
+        photo = "/goodidea.png";
+        return photo;
+      }
+      return photo;
+    }
+  },
   computed: {
     iosTalks: function() {
       // let arr = this.talks.map(talk => talk.speaker_img)
       // return arr;
-      let iosTalks = this.talks.filter(isIOS);
+      let iosTalks = this.talks.filter(this.isIOS);
       return iosTalks.reverse();
     }
   }
