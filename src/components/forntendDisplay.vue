@@ -19,14 +19,14 @@
 <script>
 export default {
   props: ["talks"],
-  methods:{
-    isFrontend:function (item) {
+  methods: {
+    isFrontend: function(item) {
       const frontEndCondition = ["Front-end", "CSS", "HTML", "Vue"];
       let photo = item.speaker_img;
       item.speaker_img = this.checkPhoto(photo);
       return frontEndCondition.includes(item.class);
     },
-    checkPhoto:function (photo) {
+    checkPhoto: function(photo) {
       let hasPhoto = photo.includes("imgur");
       if (!hasPhoto) {
         photo = "/goodidea.png";

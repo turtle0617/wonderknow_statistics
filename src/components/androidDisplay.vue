@@ -17,17 +17,16 @@
 </template>
 
 <script>
-
 export default {
   props: ["talks"],
-  methods:{
-    isAndroid:function (item) {
+  methods: {
+    isAndroid: function(item) {
       const androidCondition = ["Android"];
       let photo = item.speaker_img;
       item.speaker_img = this.checkPhoto(photo);
       return androidCondition.includes(item.class);
     },
-    checkPhoto:function (photo) {
+    checkPhoto: function(photo) {
       let hasPhoto = photo.includes("imgur");
       if (!hasPhoto) {
         photo = "/goodidea.png";

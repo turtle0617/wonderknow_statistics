@@ -19,14 +19,19 @@
 <script>
 export default {
   props: ["talks"],
-  methods:{
-    isBackend:function (item) {
-      const backEndCondition = ["Backend-end", "backend-end", "Security", "NodeJS"];
+  methods: {
+    isBackend: function(item) {
+      const backEndCondition = [
+        "Backend-end",
+        "backend-end",
+        "Security",
+        "NodeJS"
+      ];
       let photo = item.speaker_img;
       item.speaker_img = this.checkPhoto(photo);
       return backEndCondition.includes(item.class);
     },
-    checkPhoto:function (photo) {
+    checkPhoto: function(photo) {
       let hasPhoto = photo.includes("imgur");
       if (!hasPhoto) {
         photo = "/goodidea.png";

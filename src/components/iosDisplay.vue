@@ -19,14 +19,14 @@
 <script>
 export default {
   props: ["talks"],
-  methods:{
-    isIOS:function (item) {
+  methods: {
+    isIOS: function(item) {
       const iosCondition = ["IOS"];
       let photo = item.speaker_img;
       item.speaker_img = this.checkPhoto(photo);
       return iosCondition.includes(item.class);
     },
-    checkPhoto:function (photo) {
+    checkPhoto: function(photo) {
       let hasPhoto = photo.includes("imgur");
       if (!hasPhoto) {
         photo = "/goodidea.png";
