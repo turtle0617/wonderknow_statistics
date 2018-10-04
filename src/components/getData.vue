@@ -12,7 +12,6 @@ export default {
   created: function() {
     axios.get(url).then(response => {
       this.$emit("send-datas", response.data.result);
-      // this.datas = response.data.result;
     });
   }
 };

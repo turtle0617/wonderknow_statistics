@@ -1,47 +1,42 @@
 <template>
-<!-- <ul>
-  <li v-for="(detail, speaker) in showMember" v-model="showMember" v-bind:key="speaker" >
-    <div class="speaker">
-      <img v-bind:src="detail.photo" v-on:click="checkChart(detail)" alt=""> {{ speaker }}
-    </div>
-    <h3>總演講次數: {{detail.talk_count}}</h3>
-    <h3>showChart: {{detail.showChart}}</h3>
-    <div v-if="detail.showChart">
-      <ve-line  :data="detail.chartData" width="800px"></ve-line>
-    </div>
-  </li>
-</ul> -->
+  <div class="">
+    {{sendMember()}}
+  </div>
+
 </template>
 <script>
 // v-on:click="showChart(detail.talks)"
 import "v-charts/lib/style.css";
+import getData from "../axios";
 export default {
   props: ["talks"],
-  // data() {
-  //   return {
-  //     chartData: {
-  //       columns: ["month", "month_talks_count"],
-  //       rows: []
-  //     }
-  //   };
+  // mounted: function() {
+  //   this.MemberTalkStatistics;
+  //   this.sendMember();
   // },
-  mounted: function() {
-    let member_List = this.MemberTalkStatistics();
-    let list_length = Object.keys(member_List).length;
-    if (list_length != 0) {
-      console.log("mounted", member_List);
-      this.$emit("send-member-List", member_List);
+  computed: {
+    isData: function() {
+      return this.talks.length !== 0;
     }
   },
   methods: {
-    checkChart: function(member) {
-      console.log("checkChart", member.showChart);
-      member.showChart = !member.showChart;
+    sendMember: function() {
+      let member_List = this.MemberTalkStatistics();
+      let list_length = Object.keys(member_List).length;
+      console.count("sendMember", list_length);
+      if (list_length != 0) {
+        console.log("success send-member-List");
+        // this.$emit("send-member-List", member_List);
+
+        return member_List;
+      }
     },
     MemberTalkStatistics: function() {
+      console.log(this.talks);
       let talks = this.talks;
-      let member_list = {};
+      let member_list = [];
       // let month_talk_statistic = this.getMonthInYears();
+      // member_List = talks.
       talks.forEach(talk => {
         // this.memberDetailStatistics(talk, member_list, month_talk_statistic);
         this.memberDetailStatistics(talk, member_list);
@@ -49,7 +44,7 @@ export default {
       for (let member in member_list) {
         this.monthTalksStatistic(member_list[member]);
       }
-      // console.log(member_list);
+      console.log(member_list);
       return member_list;
     },
     // memberDetailStatistics: function(talk, member_list, month_talk_statistic) {
@@ -71,7 +66,7 @@ export default {
           speaker: member,
           photo: talk.speaker_img,
           talks: [],
-          showChart: true
+          showChart: false
         };
         // return;
       }
@@ -129,24 +124,4 @@ export default {
     }
   }
 };
-
-// function memberDetailStatistics(talk, member_list) {
-//   let speaker = talk.speaker;
-//   let hasSpeaker = Object.keys(member_list).includes(speaker);
-//   if (hasSpeaker) {
-//     member_list[speaker].talk_count++;
-//     member_list[speaker].talks.push(talk);
-//   } else {
-//     let photo = talk.speaker_img;
-//     let hasPhoto = photo.includes("imgur");
-//     if (!hasPhoto) {
-//       photo = "/goodidea.png";
-//     }
-//     member_list[speaker] = {
-//       talk_count: 1,
-//       photo: photo,
-//       talks: [talk]
-//     };
-//   }
-// }
 </script>
