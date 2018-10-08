@@ -1,7 +1,18 @@
 <template>
 <div class="home">
   <MemberDisplay v-bind:talks="talks" v-on:send-member-List="receivememberList" />
-
+  <ul>
+    <li v-for="( speaker, detail) in member_List"  v-bind:key="detail">
+      <!-- {{speaker}} -->
+      <div class="speaker" v-on:click="checkChart(speaker)">
+        <img v-bind:src="speaker.photo"  alt=""> {{ speaker.speaker }}
+      </div>
+      <h3>總演講次數: {{speaker.talk_count}}</h3>
+      <div v-if="speaker.showChart">
+        <ve-line :data="speaker.chartData" ></ve-line>
+      </div>
+    </li>
+  </ul>
 </div>
 </template>
 
@@ -16,8 +27,12 @@ export default {
       member_List: []
     };
   },
-  monted: function() {
-    this.checkData;
+  mounted: function() {
+    // console.log('monuted');
+    getData().then(response => {
+      // console.log('monuted get data');
+      this.talks = response.data.result;
+    });
   },
   components: {
     MemberDisplay
@@ -28,16 +43,12 @@ export default {
     },
     receivememberList: function(list) {
       let hasMemberList = this.member_List.length !== 0;
-      console.log(hasMemberList);
-      // this.member_List = list;
-    }
-  },
-  computed: {
-    checkData: function() {
-      getData().then(response => {
-        this.talks = response.data.result;
-      });
-      return this.talks;
+      if (!hasMemberList) {
+        // console.log("not list");
+      }
+
+      this.member_List = list;
+      // console.log("member_List", this.member_List);
     }
   }
 };

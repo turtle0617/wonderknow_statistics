@@ -7,7 +7,6 @@
 <script>
 // v-on:click="showChart(detail.talks)"
 import "v-charts/lib/style.css";
-import getData from "../axios";
 export default {
   props: ["talks"],
   // mounted: function() {
@@ -23,16 +22,16 @@ export default {
     sendMember: function() {
       let member_List = this.MemberTalkStatistics();
       let list_length = Object.keys(member_List).length;
-      console.count("sendMember", list_length);
+      // console.count("sendMember", list_length);
       if (list_length != 0) {
-        console.log("success send-member-List");
+        // console.log("success send-member-List");
         // this.$emit("send-member-List", member_List);
 
         return member_List;
       }
     },
     MemberTalkStatistics: function() {
-      console.log(this.talks);
+      // console.log(this.talks);
       let talks = this.talks;
       let member_list = [];
       // let month_talk_statistic = this.getMonthInYears();
@@ -44,7 +43,7 @@ export default {
       for (let member in member_list) {
         this.monthTalksStatistic(member_list[member]);
       }
-      console.log(member_list);
+      // console.log(member_list);
       return member_list;
     },
     // memberDetailStatistics: function(talk, member_list, month_talk_statistic) {

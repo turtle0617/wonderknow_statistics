@@ -1,7 +1,6 @@
 import App from "./App.vue";
 import router from "./router";
 import Vue from "vue";
-import "./assets/componentStyle.scss";
 import VCharts from "v-charts";
 Vue.use(VCharts);
 Vue.config.productionTip = false;
