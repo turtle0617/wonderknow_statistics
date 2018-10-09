@@ -6,7 +6,6 @@
     <router-link to="/Backend">Back-end</router-link> |
     <router-link to="/ios">IOS</router-link> |
     <router-link to="/android">Android</router-link> |
-    <router-link to="/chartTest">chartTest</router-link> |
   </div>
   <router-view/>
 </div>

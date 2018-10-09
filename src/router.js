@@ -5,7 +5,6 @@ import frontend from "./views/frontend.vue";
 import backend from "./views/backend.vue";
 import ios from "./views/ios.vue";
 import android from "./views/android.vue";
-import chartTest from "./views/chartTest.vue";
 
 Vue.use(Router);
 
@@ -36,10 +35,6 @@ export default new Router({
       name: "android",
       component: android
     },
-    {
-      path: "/chartTest",
-      name: "chartTest",
-      component: chartTest
-    }
+
   ]
 });
