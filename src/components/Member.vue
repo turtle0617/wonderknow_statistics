@@ -33,7 +33,7 @@ export default {
       let list_length = member_List.length;
 
       if (list_length != 0) {
-        // console.log("success send-member-List",this.talks);
+        // console.log("success send-member-List");
         this.$emit("send-member-List", member_List, all_Month_Talk);
 
         // return this.MemberTalkStatistics();

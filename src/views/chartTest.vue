@@ -1,6 +1,6 @@
 <template>
 <div class="chartTest">
-  <div id="chart" v-model="all_Month_Talk">
+  <div id="chart">
     <h1>每月統計:</h1>
     <ve-line :data="all_Month_Talk" :data-zoom="dataZoom()" :after-set-option="afterOption" id="test"></ve-line>
     <ve-line :data="all_Month_Talk"  :after-set-option="controlledOption" id="test"></ve-line>
@@ -16,7 +16,8 @@ export default {
       otherChart: [],
       all_Month_Talk: {
         columns: ["month", "month_talks_count"],
-        rows: [{
+        rows: [
+          {
             month: "2017-06",
             month_talks_count: 2
           },
@@ -98,43 +99,43 @@ export default {
   },
   methods: {
     dataZoom: function() {
-      return [{
-        type: "slider",
-        show: true,
-        start: 20,
-        end: 35
-      }];
+      return [
+        {
+          type: "slider",
+          show: true,
+          start: 20,
+          end: 35
+        }
+      ];
     },
     controlDataZoom: function(startPoint, endPoint) {
       let changeSlide = {
-        dataZoom:[{
-          type: "slider",
-          show: false,
-          start: startPoint,
-          end: endPoint
-        }]
+        dataZoom: [
+          {
+            type: "slider",
+            show: false,
+            start: startPoint,
+            end: endPoint
+          }
+        ]
       };
-      this.otherChart.setOption(changeSlide)
+      this.otherChart.setOption(changeSlide);
       // window.onresize = function() {
       //   this.otherChart.resize();
       // };
-      console.log(startPoint, endPoint, this.otherChart);
-
     },
     afterOption: function(echarts) {
       let startPoint;
       let endPoint;
-      echarts.on('dataZoom', (params) => {
+      echarts.on("dataZoom", params => {
         startPoint = parseInt(params.start);
         endPoint = parseInt(params.end);
-        this.controlDataZoom(startPoint, endPoint)
-      })
+        this.controlDataZoom(startPoint, endPoint);
+      });
     },
     controlledOption: function(echarts) {
-      console.log(echarts);
-      this.otherChart = echarts
-
+      this.otherChart = echarts;
     }
-  },
+  }
 };
 </script>
