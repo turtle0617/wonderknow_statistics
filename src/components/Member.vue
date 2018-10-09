@@ -1,7 +1,18 @@
+<template >
+<div>
+
+</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="css">
+</style>
 
 <script>
 // v-on:click="showChart(detail.talks)"
-import "v-charts/lib/style.css";
 export default {
   props: ["talks"],
   computed: {
@@ -11,16 +22,19 @@ export default {
   },
   mounted: function() {
     this.$nextTick(() => {
-      setTimeout(this.sendMember, 1000);
+      setTimeout(this.sendMember, 2000);
     });
   },
   methods: {
     sendMember: function() {
-      let member_List = this.MemberTalkStatistics();
+      let member_talk_return = this.MemberTalkStatistics();
+      let member_List = member_talk_return[0];
+      let all_Month_Talk = member_talk_return[1];
       let list_length = member_List.length;
+
       if (list_length != 0) {
         // console.log("success send-member-List",this.talks);
-        this.$emit("send-member-List", member_List);
+        this.$emit("send-member-List", member_List, all_Month_Talk);
 
         // return this.MemberTalkStatistics();
       }
@@ -29,17 +43,27 @@ export default {
     MemberTalkStatistics: function() {
       // console.log("MemberTalkStatistics",this.talks);
       let talks = Array.from(this.talks);
+      let calcul_member_return;
       let member_list;
-      // let member_list_detail;
-
+      let all_Month_Talk = {
+        chartData: {
+          columns: ["month", "month_talks_count"],
+          rows: this.getMonthInYears()
+        }
+      };
       member_list = this.generateMemberList(talks);
-      member_list = this.calculMemberAllTalk(member_list, talks);
-      // member_list = this.calculMonthTalks(member_list)
       // console.log(member_list);
-      return member_list;
+      calcul_member_return = this.calculMemberAllTalk(
+        all_Month_Talk,
+        member_list,
+        talks
+      );
+      // member_list = this.calculMemberAllTalk(member_list, talks);
+      return calcul_member_return;
     },
     generateMemberList: function(talks) {
       let member_list = [];
+
       member_list = talks
         .map(talk => {
           return talk.speaker;
@@ -66,12 +90,14 @@ export default {
         });
       return member_list;
     },
-    calculMemberAllTalk: function(member_list, talks) {
-      member_list.map(member => {
-        return talks.map(talk => {
+    calculMemberAllTalk: function(all_Month_Talk, member_list, talks) {
+      // console.log("Blist",member_list);
+      member_list = member_list.map(member => {
+        talks.forEach(talk => {
           let hasPhotoKey = Object.keys(member).includes("photo");
           let speaker = member.speaker;
           let speakerMatch = talk.speaker === speaker;
+
           if (speakerMatch) {
             let talkDate = talk.speech_date.slice(0, 7);
             member.talks.push({
@@ -81,28 +107,38 @@ export default {
               speech_date: talk.speech_date
             });
             member.talk_count++;
-            member.chartData.rows = member.chartData.rows.map(row => {
-              if (row.month === talkDate) {
-                row.month_talks_count++;
-                return row;
+            member.chartData.rows = this.calculMonthTalks(
+              member.chartData.rows,
+              talkDate
+            );
+            if (!hasPhotoKey) {
+              let hasPhoto = talk.speaker_img.includes("imgur");
+              if (!hasPhoto) {
+                talk.speaker_img = "/goodidea.png";
               }
-              return row;
-            });
-          }
-          if (!hasPhotoKey && speakerMatch) {
-            member.photo = talk.speaker_img;
-          }
-          if (hasPhotoKey) {
-            let hasPhoto = member.photo.includes("imgur");
-            if (!hasPhoto) {
-              member.photo = "/goodidea.png";
+              member.photo = talk.speaker_img;
             }
-          }
 
-          return member;
+            all_Month_Talk.chartData.rows = this.calculMonthTalks(
+              all_Month_Talk.chartData.rows,
+              talkDate
+            );
+          }
         });
+        return member;
       });
+      // console.log("list",all_Month_Talk);
+      return [member_list, all_Month_Talk];
       return member_list;
+    },
+    calculMonthTalks: function(chartRows, talkDate) {
+      return chartRows.map(row => {
+        if (row.month === talkDate) {
+          row.month_talks_count++;
+          return row;
+        }
+        return row;
+      });
     },
     getMonthInYears: function() {
       let date = new Date();
