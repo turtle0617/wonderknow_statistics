@@ -114,7 +114,7 @@ export default {
             if (!hasPhotoKey) {
               let hasPhoto = talk.speaker_img.includes("imgur");
               if (!hasPhoto) {
-                talk.speaker_img = "/goodidea.png";
+                talk.speaker_img = process.env.BASE_URL+"goodidea.png";
               }
               member.photo = talk.speaker_img;
             }
